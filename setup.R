@@ -18,4 +18,9 @@ auth <- POST("https://accounts.spotify.com/api/token",
 
 auth_body <- content(auth)
 # create token/key for all requests for the API
-token <- body$access_token
+token <- auth_body$access_token
+
+playlist_response <- GET(
+  "https://api.spotify.com/v1/users/spotify/playlists/37i9dQZF1DX0XUsuxWHRQd/tracks",
+  add_headers("Authorization" = paste0("Bearer ", token))
+)
