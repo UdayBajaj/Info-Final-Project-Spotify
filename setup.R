@@ -18,4 +18,4 @@ auth <- POST("https://accounts.spotify.com/api/token",
 
 auth_body <- content(auth)
 # create token/key for all requests for the API
-token <- body$access_token
+token <- auth_body$access_token
