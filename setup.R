@@ -101,3 +101,10 @@ average_danceability <- c(
   mean(genre_danceability[61:80], na.rm = TRUE),
   mean(genre_danceability[81:100], na.rm = TRUE)
 )
+
+genre_dance_df <- data.frame("genre" = c("Pop",
+                               "Hip Hop",
+                               "Electronic",
+                               "Rock",
+                               "Country"),
+                             average_danceability)
