@@ -239,8 +239,8 @@ View(top50_df)
 popularity_danceability <- top50_df
 
 
-top50_plot <-ggplot(top50_df, aes(x = top50$items$track$popularity, y = top50_audio_features$audio_features$danceability)) +
-  geom_point(aes(color = "Top 50 Tracks"))
+top50_plot <- ggplot(top50_df, aes(x = top50$items$track$popularity, y = top50_audio_features$audio_features$danceability)) +
+  geom_point(aes(color = "Top 50 Tracks")) +
   labs(title = "Top 50 United States Chart: Popularity vs. Danceability", x = "Popularity", y = "Danceability", color = "Track Name") +
   xlim(60,100) +
   ylim(0.2,1)
