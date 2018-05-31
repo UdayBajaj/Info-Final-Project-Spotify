@@ -4,25 +4,26 @@ source("setup.R") # run the setup file
 my_ui <- fluidPage(
   titlePanel("Danceability in Spotify's Music Catalogue"),
   sidebarLayout(
-    sidebarPanel(p("Introduction:
-                   For our study, we wanted to analyze changes and trends in popular music.
-                   To do that, we decidede to use the Spotify API because Spotify is one of the most popular music streaming sites.
-                   From there, we decided to track:
-                   - the most popular artists (based on their standings in the Top 50 Songs playlist)
-                   - the average 'danceability' of songs across multiple selected genres (Pop, Hip Hop, Electronic, Rock, Country)
-                   - and the correlation (if any) between a song's 'danceability' and 'popularity' (see Defining Metrics below)
-                   We beleive that these three metrics provide a general overview in music trends at a given time period, and are sufficient in answering our overarching questions. 
+    sidebarPanel(p(tags$b("Introduction:"),
+                   "This study is an analysis of changes and trends in popular music.
+                   To do that, we used the Spotify API because Spotify is one of the most popular music streaming sites.
+                   From there, we decided to track:"),
+                 tags$ul(
+                   tags$li("Most popular artists (based on their standings in the Top 50 Songs playlist)"),
+                   tags$li("Average 'danceability' of songs across multiple selected genres (Pop, Hip Hop, Electronic, Rock, Country)"),
+                   tags$li("Correlation (if any) between a song's 'danceability' and 'popularity' (see Defining Metrics below))")),
+                   p("We beleive that these three metrics provide a general overview in music trends at a given time period, and are sufficient in answering our overarching questions. 
                    "),
-                 p("The Spotify API: 
-                    The Spotify API seemed intimidating at first, but after some experimenting and tinkering, became very easy to use and and easy to interpret.
-                    We had originally hoped that Spotify would provide more data regarding the popularity of a track or artist across various regions, but unfortunately that was outside of the scope of the availible APIs. 
-                    Ultimately, we were very satisfied with both the useability and the data provided by the Spotify API. 
-                    "),
-                 p("Defining Metrics:
-                    Popularity - Spotify grades the popularity of songs on a 0 to 100 scale, with a score of 100 being the most popular and 0 being the least. The algorithim calculates this based on the number and frequency of plays the track has had, and how recent those plays are. 
-                    Danceability - Spotify grades the danceability (how suitable a track is for dancing) of a song on a 0.0 to 1.0 scale, with a score of 0.0 being very difficult to dance to and a score of 1.0 being very danceable. The algorithim calculates this based on a song's tempo, rythm stability, beat strength, and various other musical elements"
-                   )
-                 ),
+                 p(tags$b("Defining Metrics:"),
+                   tags$ul(
+                    tags$li("Popularity: Spotify grades the popularity of songs on a 0 to 100 scale, with a score of 100 being the most popular and 0 being the least. The algorithim calculates this based on the number and frequency of plays the track has had, and how recent those plays are."),
+                    tags$li("Danceability: Spotify grades the danceability (how suitable a track is for dancing) of a song on a 0.0 to 1.0 scale, with a score of 0.0 being very difficult to dance to and a score of 1.0 being very danceable. The algorithim calculates this based on a song's tempo, rythm stability, beat strength, and various other musical elements")
+                   )),
+                 p(tags$b("Source:"),
+                   "All data is sourced from the Spotify Web API. The API provides metrics and details for their music streaming catalogue.",
+                   tags$br(tags$a(href = "https://developer.spotify.com/documentation/web-api/", "More Information"))
+                 )
+    ),
     mainPanel(tabsetPanel(
       type = "tabs",
       tabPanel("Top Artists", 
