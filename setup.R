@@ -1,13 +1,16 @@
 library("httr")
+# install.packages("RCurl")
 library("RCurl") # new package we haven't used before make sure to install
 library("jsonlite")
 library("dplyr")
+library("ggplot2")
 
 # This file is for authorizing the spotify API making requests to the API and
 # making calls to the API
 
 # store client_id and client_secret in keys.R file hidden by gitignore
 source("keys.R")
+
 # format project id for authorization with the API
 id_secret <- base64(paste(client_id, client_secret, sep = ":"))
 
@@ -19,6 +22,8 @@ auth <- POST("https://accounts.spotify.com/api/token",
 )
 
 auth_body <- content(auth)
+auth_body
+
 # create token/key for all requests for the API
 token <- auth_body$access_token
 
@@ -138,7 +143,7 @@ response <- GET(
   add_headers("Authorization" = paste0("Bearer ", token))
 )
 
-# Unpakcs the JSON data and makes it readable
+# Unpacks the JSON data and makes it readable
 body <- content(response, "text")
 parsed_data <- fromJSON(body)
 flat_data <- flatten(parsed_data$items)
@@ -191,3 +196,44 @@ ordered_artists <- c(artist_one,
 top_ten_artists <- data.frame(matrix(, nrow=10, ncol=0))
 top_ten_artists <- mutate(top_ten_artists, Rank = c(1:10))
 top_ten_artists <- mutate(top_ten_artists, Artists = ordered_artists)
+
+
+#################
+### Daniel's ####
+#################
+
+# Make an API request to Spotify for the desired data (Top 50 U.S. Chart playlist)
+playlist_response <- GET(
+  "https://api.spotify.com/v1/users/spotifycharts/playlists/37i9dQZEVXbLRQDuF5jeBp/tracks",
+  add_headers("Authorization" = paste0("Bearer ", token))
+)
+
+# Unpack the JSON data and make it readable
+body <- content(playlist_response, "text")
+top50 <- fromJSON(body)
+
+# Get the audio features for the Top 50 U.S. Chart playlist
+top50_track_response <- GET(
+  paste0(
+    "https://api.spotify.com/v1/audio-features/?ids=",
+    paste0(song_id, collapse = ",")
+  ),
+  add_headers("Authorization" = paste0("Bearer ", token))
+)
+
+# Unpack the JSON data for audio features and make it readable
+audio_features_body <- content(top50_track_response, "text")
+top50_audio_features <- fromJSON(audio_features_body)
+
+# Store song id, track name, popularity, danceability into a data frame
+top50_df <- data.frame(top50$items$track$id, top50$items$track$name, top50$items$track$popularity, top50_audio_features$audio_features$danceability)
+
+# Create scatter plot for data frame via ggplot2
+popularity_plot <- ggplot(top50_df, aes(x = top50$items$track$popularity, y = top50_audio_features$audio_features$danceability)) +
+  geom_point(aes(color = "Top 50 Tracks")) +
+  geom_smooth(method = "lm") +
+  theme(legend.position="none") +
+  labs(title = "Top 50 United States Chart: Popularity vs. Danceability", x = "Popularity", y = "Danceability", color = "Top 50 US Chart") +
+  xlim(75,100) +
+  ylim(0.2,1)
+
