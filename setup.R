@@ -289,5 +289,3 @@ popularity_plot <- ggplot(top50_df, aes(x = popularity, y = danceability)) +
   xlim(75,100) +
   ylim(0.25,1)
 p <- ggplotly(popularity_plot)
-
-

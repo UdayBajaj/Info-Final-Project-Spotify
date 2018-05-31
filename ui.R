@@ -7,7 +7,8 @@ my_ui <- fluidPage(
     sidebarPanel(),
     mainPanel(tabsetPanel(
       type = "tabs",
-      tabPanel("Top Artists"),
+      tabPanel("Top Artists", 
+               dataTableOutput("table")),
       tabPanel("Genre Anaylsis",
                plotOutput("plot")),
       tabPanel("Popularity Analysis",
