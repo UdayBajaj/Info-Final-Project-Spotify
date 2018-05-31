@@ -241,4 +241,4 @@ popularity_plot <- ggplot(top50_df, aes(x = popularity, y = danceability)) +
   labs(title = "Top 50 United States Chart: Popularity vs. Danceability", x = "Popularity", y = "Danceability", color = "Top 50 US Chart") +
   xlim(75,100) +
   ylim(0.25,1)
-p <- ggplotly(popularity_plot)
+popularity_plot_interactive <- ggplotly(popularity_plot)

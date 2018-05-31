@@ -54,8 +54,28 @@ my_server <- function(input, output) {
     tracks_table
   })
   
+  # create header for table
+  output$table_title <- renderText({
+    if(input$select_genre == "pop") {
+      title_result <- "Mega Hit Mix Playlist by Spotify"
+    }
+    if(input$select_genre == "hip") {
+      title_result <- "Rap Caviar Playlist by Spotify"
+    }
+    if(input$select_genre == "electro") {
+      title_result <- "mint Playlist by Spotify"
+    }
+    if(input$select_genre == "rock") {
+      title_result <- "Rock This Playlist by Spotify"
+    }
+    if(input$select_genre == "country") {
+      title_result <- "Hot Country Playlist by Spotify"
+    }
+    title_result
+  })
+  
   output$plot2 <- renderPlot({
-    popularity_plot
+    popularity_plot_interactive
   })
   output$table <- renderDataTable(top_ten_artists)
 }

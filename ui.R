@@ -20,7 +20,7 @@ my_ui <- fluidPage(
                     "),
                  p("Defining Metrics:
                     Popularity - Spotify grades the popularity of songs on a 0 to 100 scale, with a score of 100 being the most popular and 0 being the least. The algorithim calculates this based on the number and frequency of plays the track has had, and how recent those plays are. 
-                    Danceability - Spotify grades the danceability (how suitable a track is for dancing) of a song on a 0.0 to 1.0 scale, with a score of 0.0 being very difficult to dance to and a score of 1.0 being very danceable. The algorithim calculates this based on a song's tempo, rythm stability, beat strength, and various other musical elem"
+                    Danceability - Spotify grades the danceability (how suitable a track is for dancing) of a song on a 0.0 to 1.0 scale, with a score of 0.0 being very difficult to dance to and a score of 1.0 being very danceable. The algorithim calculates this based on a song's tempo, rythm stability, beat strength, and various other musical elements"
                    )
                  ),
     mainPanel(tabsetPanel(
@@ -40,6 +40,12 @@ my_ui <- fluidPage(
                ),
       tabPanel("Genre Anaylsis",
                plotOutput("plot"),
+               p("Bar graph depicting average track dancebility within each musical genres
+                 Pop, Hip Hop, Electronic/Dance, Rock, and Country. The data is sourced
+                 from playlists created by spotify containing popular music representative
+                 of each genre's sound. Twenty songs are sampled from each playlist and
+                 spotify danceability values are used to calculate a mean score for each
+                 genre. Select a genre below to view the songs sampled in the vizualization."),
                selectInput("select_genre",
                            "Sampled Tracks",
                            c("Pop" = "pop",
@@ -47,9 +53,11 @@ my_ui <- fluidPage(
                              "Electronic" = "electro",
                              "Rock" = "rock",
                              "Country" = "country")),
+               h5(textOutput("table_title")),
                tableOutput("tracklist")),
       tabPanel("Popularity Analysis",
-               plotOutput("plot2"),
+               popularity_plot_interactive,
+               #plotOutput("plot2"),
                p("The scatterplot above represents the data for popularity and danceability values for the U.S. Top 50 Chart playlist on Spotify,
                  with popularity on the x-axis and danceability on the y-axis. We thought that popularity and danceability would be interesting 
                 categories of data, since they are very distinct but also very closely related in that the sound of most mainstream, popular 
