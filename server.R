@@ -12,6 +12,9 @@ my_server <- function(input, output) {
            y = "Danceability Value (Score rated from 0 to 1)")
     p
   })
+  output$plot2 <- renderPlot({
+    popularity_plot
+  })
 }
 
 shinyServer(my_server)

@@ -8,8 +8,12 @@ my_ui <- fluidPage(
     mainPanel(tabsetPanel(
       type = "tabs",
       tabPanel("Top Artists"),
-      tabPanel("Genre Anaylsis", plotOutput("plot")),
-      tabPanel("Popularity Analysis")
+      tabPanel("Genre Anaylsis",
+               plotOutput("plot")),
+      tabPanel("Popularity Analysis",
+               plotOutput("plot2"),
+               p("")
+               )
     ))
   )
 )
