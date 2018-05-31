@@ -15,6 +15,11 @@ my_server <- function(input, output) {
   output$plot2 <- renderPlot({
     popularity_plot
   })
+  output$table <- renderDataTable(top_ten_artists)
 }
+
+
+
+
 
 shinyServer(my_server)

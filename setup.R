@@ -250,7 +250,8 @@ playlist_response <- GET(
 # Unpack the JSON data and make it readable
 body <- content(playlist_response, "text")
 top50 <- fromJSON(body)
-
+song_id <- top50$items$track$id
+  
 # Get the audio features for the Top 50 U.S. Chart playlist
 top50_track_response <- GET(
   paste0(
