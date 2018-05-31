@@ -124,9 +124,11 @@ genre_dance_df <- data.frame("genre" = c("Pop",
 ##################
 ##################
 
-#creates the URI that will be used in the Get Request
+# creates the URI that will be used in the Get Request
 base_uri <- "https://api.spotify.com/v1/users/"
 user_id <- "wavypaper"
+
+# The Get Request is getting the top 50 charts
 playlist_id <- "37i9dQZEVXbLRQDuF5jeBp"
 response_uri <- paste0(base_uri,user_id, "/playlists/",playlist_id,"/tracks")
 
@@ -141,7 +143,7 @@ body <- content(response, "text")
 parsed_data <- fromJSON(body)
 flat_data <- flatten(parsed_data$items)
 
-# Organizes the tracks by popularity and passes the 10 most popular tracks to a 
+# Organizes the tracks by popularity and passes the 10 most popular tracks to a
 # Seperate dataset
 flat_data <- arrange(flat_data, desc(track.popularity))
 top_10_tracks <- slice(flat_data, 1:10)
@@ -184,10 +186,8 @@ ordered_artists <- c(artist_one,
                      artist_nine,
                      artist_ten )
 
-# initializes and creates a dataframw with the popularity ranking of artists
+# initializes and creates a dataframe with the popularity ranking of artists
 # based on the most popular songs on spotify
 top_ten_artists <- data.frame(matrix(, nrow=10, ncol=0))
 top_ten_artists <- mutate(top_ten_artists, Rank = c(1:10))
 top_ten_artists <- mutate(top_ten_artists, Artists = ordered_artists)
-View(top_ten_artists)
-
