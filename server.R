@@ -1,5 +1,6 @@
 library("shiny")
 library("ggplot2")
+library("dplyr")
 source("setup.R") # run the setup file
 
 my_server <- function(input, output) {
@@ -12,6 +13,47 @@ my_server <- function(input, output) {
            y = "Danceability Value (Score rated from 0 to 1)")
     p
   })
+
+  # create table showing sampled songs for each genre selected by user  
+  output$tracklist <- renderTable({
+    if(input$select_genre == "pop") {
+    tracks_table <- pop_data$items$track %>%
+        select(name) %>%
+        slice(1:20) %>%
+        mutate(danceability = genre_danceability[1:20]) %>%
+        rename(Track = name, Danceability = danceability)
+    }
+    if(input$select_genre == "hip") {
+      tracks_table <- hiphop_data$items$track %>%
+        select(name) %>%
+        slice(1:20) %>%
+        mutate(danceability = genre_danceability[21:40]) %>%
+        rename(Track = name, Danceability = danceability)
+    }
+    if(input$select_genre == "electro") {
+      tracks_table <- electro_data$items$track %>%
+        select(name) %>%
+        slice(1:20) %>%
+        mutate(danceability = genre_danceability[41:60]) %>%
+        rename(Track = name, Danceability = danceability)
+    }
+    if(input$select_genre == "rock") {
+      tracks_table <- rock_data$items$track %>%
+        select(name) %>%
+        slice(1:20) %>%
+        mutate(danceability = genre_danceability[61:80]) %>%
+        rename(Track = name, Danceability = danceability)
+    }
+    if(input$select_genre == "country") {
+      tracks_table <- country_data$items$track %>%
+        select(name) %>%
+        slice(1:20) %>%
+        mutate(danceability = genre_danceability[81:100]) %>%
+        rename(Track = name, Danceability = danceability)
+    }
+    tracks_table
+  })
+  
   output$plot2 <- renderPlot({
     popularity_plot
   })

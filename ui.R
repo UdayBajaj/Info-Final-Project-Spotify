@@ -9,9 +9,18 @@ my_ui <- fluidPage(
       type = "tabs",
       tabPanel("Top Artists"),
       tabPanel("Genre Anaylsis",
-               plotOutput("plot")),
+               plotOutput("plot"),
+               selectInput("select_genre",
+                           "Sampled Tracks",
+                           c("Pop" = "pop",
+                             "Hip Hop" = "hip",
+                             "Electronic" = "electro",
+                             "Rock" = "rock",
+                             "Country" = "country")),
+               tableOutput("tracklist")),
       tabPanel("Popularity Analysis",
-               plotOutput("plot2"),
+               plotOutput("plot2", click = "plot_click"),
+               verbatimTextOutput("info"),
                p("")
                )
     ))
