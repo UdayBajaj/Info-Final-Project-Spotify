@@ -230,6 +230,8 @@ top50_df <- data.frame(top50$items$track$id, top50$items$track$name, top50$items
 popularity_plot <- ggplot(top50_df, aes(x = top50$items$track$popularity, y = top50_audio_features$audio_features$danceability)) +
   geom_point(aes(color = "Top 50 Tracks")) +
   geom_smooth(method = "lm") +
+  theme(legend.position="none") +
   labs(title = "Top 50 United States Chart: Popularity vs. Danceability", x = "Popularity", y = "Danceability", color = "Top 50 US Chart") +
-  xlim(60,100) +
-  ylim(0,1)
+  xlim(75,100) +
+  ylim(0.2,1)
+
