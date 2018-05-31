@@ -18,7 +18,7 @@ my_ui <- fluidPage(
                 categories of data, since they are very distinct but also very closely related in that the sound of most mainstream, popular 
                 music also happens to be music that you can dance to. Despite this, our data visualization for the Top 50 U.S. Chart shows no 
                 strong correlation between popularity and danceability.")
-               )
+      )
     ))
   )
 )
