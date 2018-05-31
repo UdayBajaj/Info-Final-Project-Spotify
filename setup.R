@@ -276,12 +276,18 @@ top50_audio_features <- fromJSON(audio_features_body)
 # Store song id, track name, popularity, danceability into a data frame
 top50_df <- data.frame(top50$items$track$id, top50$items$track$name, top50$items$track$popularity, top50_audio_features$audio_features$danceability)
 
+# Store popularity and danceability into variables
+popularity <- top50$items$track$popularity
+danceability <- top50_audio_features$audio_features$danceability
+
 # Create scatter plot for data frame via ggplot2
-popularity_plot <- ggplot(top50_df, aes(x = top50$items$track$popularity, y = top50_audio_features$audio_features$danceability)) +
-  geom_point(aes(color = "Top 50 Tracks")) +
+popularity_plot <- ggplot(top50_df, aes(x = popularity, y = danceability)) +
+  geom_point(mapping = NULL, data = NULL, stat = "identity") +
   geom_smooth(method = "lm") +
   theme(legend.position="none") +
   labs(title = "Top 50 United States Chart: Popularity vs. Danceability", x = "Popularity", y = "Danceability", color = "Top 50 US Chart") +
   xlim(75,100) +
-  ylim(0.2,1)
+  ylim(0.25,1)
+p <- ggplotly(popularity_plot)
+
 
